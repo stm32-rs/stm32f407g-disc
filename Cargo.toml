@@ -1,0 +1,46 @@
+[package]
+authors = ["Daniel Egger <daniel@eggers-club.de>"]
+categories = [
+    "embedded",
+    "no-std",
+]
+description = "Board support crate for the STM32F407G DISCOVERY microcontroller board"
+documentation = "https://docs.rs/stm32f407g-disc"
+keywords = [
+    "arm",
+    "cortex-m",
+    "template",
+]
+license = "0BSD"
+name = "stm32f407g-disc"
+repository = "https://github.com/therealprof/stm32f407g-disc"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.5.7"
+cortex-m-rt = "0.6.4"
+
+[dependencies.embedded-hal]
+features = ["unproven"]
+version = "0.2.1"
+
+[dependencies.stm32f4xx-hal]
+features = ["rt", "stm32f407"]
+version = "0.1.0"
+
+[dev-dependencies]
+ssd1306 = "0.2.0"
+nb = "0.1.1"
+panic-abort = "0.3.0"
+
+[features]
+default = ["rt"]
+rt = []
+
+[profile.dev]
+debug = true
+
+[profile.release]
+debug = true
+lto = true
+opt-level = "s"
