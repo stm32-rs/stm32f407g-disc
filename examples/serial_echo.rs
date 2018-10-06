@@ -23,7 +23,7 @@ fn main() -> ! {
         let mut rcc = p.RCC.constrain();
         let clocks = rcc.cfgr.sysclk(48.mhz()).freeze();
 
-        // USART2 at PA2 (TX) and PA3(RX) are connectet to ST-Link
+        // USART2 at PA2 (TX) and PA3(RX) are connected to ST-Link
         // (well, not really, you're supposed to wire them yourself!)
         let tx = gpioa.pa2.into_alternate_af7();
         let rx = gpioa.pa3.into_alternate_af7();
@@ -31,6 +31,7 @@ fn main() -> ! {
         // Set up USART 2 configured pins and a baudrate of 115200 baud
         let serial = Serial::usart2(p.USART2, (tx, rx), 115_200.bps(), clocks);
 
+        // Separate out the sender and receiver of the serial port
         let (mut tx, mut rx) = serial.split();
 
         loop {
