@@ -11,9 +11,9 @@ extern crate ssd1306;
 extern crate stm32f407g_disc as board;
 
 use cortex_m_rt::entry;
+use ssd1306::displayrotation::DisplayRotation;
 use ssd1306::mode::TerminalMode;
 use ssd1306::Builder;
-use ssd1306::displayrotation::DisplayRotation;
 
 use board::hal::i2c::*;
 use board::hal::prelude::*;
