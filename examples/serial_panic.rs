@@ -35,7 +35,9 @@ fn panic(info: &PanicInfo) -> ! {
             writeln!(tx, "\r\n{}", info).ok();
         }
 
-        loop {}
+        loop {
+            continue;
+        }
     })
 }
 
@@ -90,5 +92,7 @@ fn main() -> ! {
         }
     }
 
-    loop {}
+    loop {
+        continue;
+    }
 }

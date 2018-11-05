@@ -2,7 +2,7 @@
 #![no_std]
 
 extern crate cortex_m_rt;
-extern crate panic_abort;
+extern crate panic_halt;
 
 extern crate stm32f407g_disc as board;
 
@@ -47,5 +47,7 @@ fn main() -> ! {
         }
     }
 
-    loop {}
+    loop {
+        continue;
+    }
 }

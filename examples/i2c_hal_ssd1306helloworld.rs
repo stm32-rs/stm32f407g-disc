@@ -3,7 +3,7 @@
 
 extern crate cortex_m;
 extern crate cortex_m_rt;
-extern crate panic_abort;
+extern crate panic_halt;
 
 extern crate embedded_hal;
 extern crate ssd1306;
@@ -61,5 +61,7 @@ fn main() -> ! {
         let _ = write!(disp, "Hello world!");
     }
 
-    loop {}
+    loop {
+        continue;
+    }
 }
