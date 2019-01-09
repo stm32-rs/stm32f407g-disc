@@ -9,5 +9,7 @@ extern crate cortex_m_rt;
 pub use cortex_m::*;
 pub use cortex_m_rt::*;
 pub use hal::stm32::interrupt::*;
+pub use hal::stm32::Peripherals;
+pub use hal::stm32::Interrupt as interrupt;
 pub use hal::stm32::*;
 pub use hal::*;
