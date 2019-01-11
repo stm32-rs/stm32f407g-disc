@@ -19,10 +19,10 @@ pub type LD6 = PD14<Output<PushPull>>;
 
 /// User LED colors
 pub enum LedColor {
-	/// Orange LED / LD3
-	Orange,
 	/// Green LED / LD4
 	Green,
+	/// Orange LED / LD3
+	Orange,
 	/// Red LED / LD5
 	Red,
 	/// Blue LED / LD6

@@ -13,6 +13,8 @@ use board::hal::delay::Delay;
 use board::hal::prelude::*;
 use board::hal::stm32;
 
+use board::led::{Leds, LedColor};
+
 use cortex_m::peripheral::Peripherals;
 
 #[entry]
@@ -20,8 +22,8 @@ fn main() -> ! {
     if let (Some(p), Some(cp)) = (stm32::Peripherals::take(), Peripherals::take()) {
         let gpiod = p.GPIOD.split();
 
-        // (Re-)configure PD13 (orange LED) as output
-        let mut led = gpiod.pd13.into_push_pull_output();
+        // Initialize on-board LEDs
+        let mut leds = Leds::new(gpiod);
 
         // Constrain clock registers
         let mut rcc = p.RCC.constrain();
@@ -33,15 +35,30 @@ fn main() -> ! {
         let mut delay = Delay::new(cp.SYST, clocks);
 
         loop {
-            // Turn LED on
-            led.set_high();
+            // Turn LEDs on one after the other with 500ms delay between them
+            leds[LedColor::Orange].on();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Red].on();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Blue].on();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Green].on();
+            delay.delay_ms(500_u16);
+
 
             // Delay twice for half a second due to limited timer resolution
             delay.delay_ms(500_u16);
             delay.delay_ms(500_u16);
 
-            // Turn LED off
-            led.set_low();
+            // Turn LEDs off one after the other with 500ms delay between them
+            leds[LedColor::Orange].off();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Red].off();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Blue].off();
+            delay.delay_ms(500_u16);
+            leds[LedColor::Green].off();
+            delay.delay_ms(500_u16);        
 
             // Delay twice for half a second due to limited timer resolution
             delay.delay_ms(500_u16);
