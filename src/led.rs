@@ -17,16 +17,16 @@ pub type LD5 = PD15<Output<PushPull>>;
 /// Bottom LED (blue)
 pub type LD6 = PD14<Output<PushPull>>;
 
-/// Positons of the user LEDs.
-pub enum Position {
-	/// Top / LD3
-	Top,
-	/// Left / LD4
-	Left,
-	/// Right / LD5
-	Right,
-	/// Bottom / LD6
-	Bottom,
+/// User LED colors
+pub enum LedColor {
+	/// Orange LED / LD3
+	Orange,
+	/// Green LED / LD4
+	Green,
+	/// Red LED / LD5
+	Red,
+	/// Blue LED / LD6
+	Blue,
 }
 
 // Array of the on-board user LEDs
@@ -74,11 +74,11 @@ impl core::ops::Index<usize> for Leds {
 	}
 }
 
-impl core::ops::Index<Position> for Leds {
+impl core::ops::Index<LedColor> for Leds {
 	type Output = Led;
 
-	fn index(&self, pos: Position) -> &Led {
-		&self.leds[pos as usize]
+	fn index(&self, c: LedColor) -> &Led {
+		&self.leds[c as usize]
 	}
 }
 
@@ -88,9 +88,9 @@ impl core::ops::IndexMut<usize> for Leds {
 	}
 }
 
-impl core::ops::IndexMut<Position> for Leds {
-	fn index_mut(&mut self, pos: Position) -> &mut Led {
-		&mut self.leds[pos as usize]
+impl core::ops::IndexMut<LedColor> for Leds {
+	fn index_mut(&mut self, c: LedColor) -> &mut Led {
+		&mut self.leds[c as usize]
 	}
 }
 
