@@ -35,7 +35,7 @@ pub struct Leds {
 }
 
 impl Leds {
-	pub fn new(mut gpiod: gpiod::Parts) -> Self {
+	pub fn new(gpiod: gpiod::Parts) -> Self {
 		let top = gpiod.pd12.into_push_pull_output();
 		let left = gpiod.pd13.into_push_pull_output();
 		let right = gpiod.pd14.into_push_pull_output();
