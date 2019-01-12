@@ -11,51 +11,49 @@ use cortex_m_rt::entry;
 
 use board::hal::prelude::*;
 use board::hal::stm32;
+use board::led::{Leds, LedColor};
 
 #[entry]
 fn main() -> ! {
     if let Some(p) = stm32::Peripherals::take() {
         let gpiod = p.GPIOD.split();
 
-        // (Re-)configure PD pins connected to the LEDs as output
-        let mut green = gpiod.pd12.into_push_pull_output();
-        let mut orange = gpiod.pd13.into_push_pull_output();
-        let mut red = gpiod.pd14.into_push_pull_output();
-        let mut blue = gpiod.pd15.into_push_pull_output();
+        // Initialize on-board LEDs
+        let mut leds = Leds::new(gpiod);
 
         // Endlessly blink the 4 LEDs in a circle, delaying by executing the state write many times
         // in a row
         loop {
-            for _ in 0..500_000 {
-                orange.set_high();
+            for _ in 0..10_000 {
+                leds[LedColor::Orange].on();
             }
 
-            for _ in 0..500_000 {
-                orange.set_low();
+            for _ in 0..10_000 {
+                leds[LedColor::Orange].off();
             }
 
-            for _ in 0..500_000 {
-                red.set_high();
+            for _ in 0..10_000 {
+                leds[LedColor::Red].on();
             }
 
-            for _ in 0..500_000 {
-                red.set_low();
+            for _ in 0..10_000 {
+                leds[LedColor::Red].off();
             }
 
-            for _ in 0..500_000 {
-                blue.set_high();
+            for _ in 0..10_000 {
+                leds[LedColor::Blue].on();
             }
 
-            for _ in 0..500_000 {
-                blue.set_low();
+            for _ in 0..10_000 {
+                leds[LedColor::Blue].off();
             }
 
-            for _ in 0..500_000 {
-                green.set_high();
+            for _ in 0..10_000 {
+                leds[LedColor::Green].on();
             }
 
-            for _ in 0..500_000 {
-                green.set_low();
+            for _ in 0..10_000 {
+                leds[LedColor::Green].off();
             }
         }
     }

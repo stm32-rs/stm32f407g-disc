@@ -13,3 +13,5 @@ pub use hal::stm32::Peripherals;
 pub use hal::stm32::Interrupt as interrupt;
 pub use hal::stm32::*;
 pub use hal::*;
+
+pub mod led;
