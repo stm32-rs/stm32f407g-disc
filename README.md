@@ -13,8 +13,6 @@ connector is also available.
 It also contains a (non-removable) capable ST-Link V2 debugging interface.
 
 [STM32F407G-DISC]: https://www.st.com/en/evaluation-tools/stm32f4discovery.html
-[cortex-m]:(https://github.com/japaric/cortex-m)
-[cortex-m-rt]:(https://github.com/japaric/cortex-m-rt)
 
 License
 -------

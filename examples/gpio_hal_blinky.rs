@@ -1,21 +1,19 @@
 #![no_main]
 #![no_std]
 
-extern crate cortex_m;
-extern crate cortex_m_rt;
-extern crate panic_halt;
+use panic_halt as _;
 
-extern crate stm32f407g_disc as board;
+use stm32f407g_disc as board;
 
-use cortex_m_rt::entry;
-
-use board::hal::delay::Delay;
-use board::hal::prelude::*;
-use board::hal::stm32;
-
-use board::led::{Leds, LedColor};
+use crate::board::{
+    hal::stm32,
+    hal::{delay::Delay, prelude::*},
+    led::{LedColor, Leds},
+};
 
 use cortex_m::peripheral::Peripherals;
+
+use cortex_m_rt::entry;
 
 #[entry]
 fn main() -> ! {
@@ -26,7 +24,7 @@ fn main() -> ! {
         let mut leds = Leds::new(gpiod);
 
         // Constrain clock registers
-        let mut rcc = p.RCC.constrain();
+        let rcc = p.RCC.constrain();
 
         // Configure clock to 168 MHz (i.e. the maximum) and freeze it
         let clocks = rcc.cfgr.sysclk(168.mhz()).freeze();
@@ -45,7 +43,6 @@ fn main() -> ! {
             leds[LedColor::Green].on();
             delay.delay_ms(500_u16);
 
-
             // Delay twice for half a second due to limited timer resolution
             delay.delay_ms(500_u16);
             delay.delay_ms(500_u16);
@@ -58,7 +55,7 @@ fn main() -> ! {
             leds[LedColor::Blue].off();
             delay.delay_ms(500_u16);
             leds[LedColor::Green].off();
-            delay.delay_ms(500_u16);        
+            delay.delay_ms(500_u16);
 
             // Delay twice for half a second due to limited timer resolution
             delay.delay_ms(500_u16);

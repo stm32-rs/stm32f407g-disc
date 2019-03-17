@@ -1,17 +1,17 @@
 #![no_main]
 #![no_std]
 
-extern crate cortex_m;
-extern crate cortex_m_rt;
-extern crate panic_halt;
+use panic_halt as _;
 
-extern crate stm32f407g_disc as board;
+use stm32f407g_disc as board;
+
+use crate::board::{
+    hal::prelude::*,
+    hal::stm32,
+    led::{LedColor, Leds},
+};
 
 use cortex_m_rt::entry;
-
-use board::hal::prelude::*;
-use board::hal::stm32;
-use board::led::{Leds, LedColor};
 
 #[entry]
 fn main() -> ! {

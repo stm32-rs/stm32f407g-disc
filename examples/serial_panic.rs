@@ -1,37 +1,31 @@
 #![no_main]
 #![no_std]
 
-extern crate cortex_m;
-extern crate cortex_m_rt;
+use stm32f407g_disc as board;
 
-extern crate stm32f407g_disc as board;
+use nb::block;
 
-#[macro_use(block)]
-extern crate nb;
+use crate::board::{
+    hal::prelude::*,
+    hal::stm32,
+    serial::{config::Config, Serial},
+};
 
-use board::hal::prelude::*;
-use board::hal::stm32;
-
-use board::hal::serial::{config::Config, Serial};
-
-use cortex_m_rt::entry;
-
-use core::cell::RefCell;
-use core::ops::DerefMut;
 use cortex_m::interrupt::Mutex;
 
+use core::{cell::RefCell, fmt::Write, ops::DerefMut};
+
 // Make the write part of our serial port globally available
-static PANIC_SERIAL: Mutex<RefCell<Option<board::serial::Tx<board::USART2>>>> =
+static PANIC_SERIAL: Mutex<RefCell<Option<board::serial::Tx<board::stm32::USART2>>>> =
     Mutex::new(RefCell::new(None));
 
-use core::fmt::Write;
 use core::panic::PanicInfo;
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     cortex_m::interrupt::free(|cs| {
         // Obtain mutex protected write part of serial port
-        if let &mut Some(ref mut tx) = PANIC_SERIAL.borrow(cs).borrow_mut().deref_mut() {
+        if let Some(ref mut tx) = *PANIC_SERIAL.borrow(cs).borrow_mut().deref_mut() {
             writeln!(tx, "\r\n{}", info).ok();
         }
 
@@ -41,11 +35,11 @@ fn panic(info: &PanicInfo) -> ! {
     })
 }
 
-#[entry]
+#[cortex_m_rt::entry]
 fn main() -> ! {
     if let Some(p) = stm32::Peripherals::take() {
         let gpioa = p.GPIOA.split();
-        let mut rcc = p.RCC.constrain();
+        let rcc = p.RCC.constrain();
         let clocks = rcc.cfgr.sysclk(48.mhz()).freeze();
 
         // USART2 at PA2 (TX) and PA3(RX) are connected to ST-Link
@@ -63,7 +57,7 @@ fn main() -> ! {
         .unwrap();
 
         // Separate out the sender and receiver of the serial port
-        let (mut tx, mut rx) = serial.split();
+        let (tx, mut rx) = serial.split();
 
         // Transfer write part of serial port into Mutex
         cortex_m::interrupt::free(|cs| {
@@ -77,7 +71,7 @@ fn main() -> ! {
 
             // Obtain write part of serial port via Mutex
             cortex_m::interrupt::free(|cs| {
-                if let &mut Some(ref mut tx) = PANIC_SERIAL.borrow(cs).borrow_mut().deref_mut() {
+                if let Some(ref mut tx) = *PANIC_SERIAL.borrow(cs).borrow_mut().deref_mut() {
                     block!(tx.write(received)).ok();
                 }
             });
