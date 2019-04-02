@@ -6,7 +6,7 @@ categories = [
     "no-std",
 ]
 description = "Board support crate for the STM32F407G DISCOVERY microcontroller board"
-documentation = "https://docs.rs/stm32f407g-disc"
+documentation = "https://docs.rs/crate/stm32f407g-disc"
 keywords = [
     "arm",
     "cortex-m",
