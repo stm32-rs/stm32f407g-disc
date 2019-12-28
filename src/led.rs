@@ -123,7 +123,7 @@ impl Led {
 
     /// Toggles the LED
     pub fn toggle(&mut self) {
-        if self.pin.is_low() {
+        if let Ok(true) = self.pin.is_low() {
             self.pin.set_high();
         } else {
             self.pin.set_low();
