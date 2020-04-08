@@ -5,4 +5,4 @@ if (( $# != 1 )); then
         exit 1
 fi
 
-openocd -f discovery.cfg -c "init" -c "targets" -c "reset halt" -c "program $1 verify reset exit"
+openocd -c "init" -c "targets" -c "reset halt" -c "program $1 verify reset exit"
