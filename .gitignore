@@ -7,3 +7,4 @@ Cargo.lock
 bloat_log*
 itm.txt
 .gdb_history
+.vscode/STM32F407.svd
