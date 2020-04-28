@@ -12,4 +12,5 @@ pub use cortex_m::*;
 pub use cortex_m_rt::*;
 
 pub mod accelerometer;
+pub mod audio_out;
 pub mod led;

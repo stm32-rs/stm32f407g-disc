@@ -29,15 +29,16 @@
       "cwd": "${workspaceRoot}",
       "preLaunchTask": "cargo build --examples",
       "runToMain": true,
-      "executable": "./target/thumbv7em-none-eabihf/debug/{{project-name}}",
+      // "executable": "./target/thumbv7em-none-eabihf/debug/{{project-name}}",
       /* Run `cargo build --example itm` and uncomment this line to run itm example */
       // "executable": "./target/thumbv7em-none-eabihf/debug/examples/itm",
+      "executable": "./target/thumbv7em-none-eabihf/debug/examples/audio",
       "device": "STM32F407VGT6",
       "configFiles": ["openocd.cfg"],
       "svdFile": "${workspaceRoot}/.vscode/STM32F407.svd",
       "swoConfig": {
         "enabled": true,
-        "cpuFrequency": 16000000,
+        "cpuFrequency": 168000000,
         "swoFrequency": 2000000,
         "source": "probe",
         "decoders": [{ "type": "console", "label": "ITM", "port": 0 }]
