@@ -5,3 +5,4 @@ Cargo.lock
 **.bk
 **.sw*
 bloat_log*
+itm.txt
