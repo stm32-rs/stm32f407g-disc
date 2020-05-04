@@ -5,4 +5,4 @@ if (( $# != 1 )); then
         exit 1
 fi
 
-openocd -c "init" -c "targets" -c "reset halt" -c "program $1 verify reset exit"
+openocd -f openocd.cfg -c "init" -c "targets" -c "reset halt" -c "program $1 verify reset exit"
