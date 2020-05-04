@@ -23,10 +23,10 @@ set mem inaccessible-by-default off
 
 # monitor arm semihosting enable
 
-# # send captured ITM to the file itm.fifo
-# # (the microcontroller SWO pin must be connected to the programmer SWO pin)
-# # 16000000 must match the core clock frequency
-# monitor tpiu config internal itm.txt uart off 16000000
+# # send captured ITM to the file itm.txt
+# # (the programmer's SWO pin on the STM32F4DISCOVERY is hard-wired to PB3. Make sure not to use it for a different purpose!)
+# # 168000000 is the core clock frequency
+monitor tpiu config internal itm.txt uart off 168000000
 
 # # OR: make the microcontroller SWO pin output compatible with UART (8N1)
 # # 8000000 is the frequency of the SWO pin
