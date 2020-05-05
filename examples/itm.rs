@@ -1,15 +1,7 @@
 //! Sends "Hello, world!" through the ITM port 0
-//!
 //! ITM is much faster than semihosting. Like 4 orders of magnitude or so.
 //!
-//! **NOTE** Cortex-M0 chips don't support ITM.
-//!
-//! You'll have to connect the microcontroller's SWO pin to the SWD interface. Note that some
-//! development boards don't provide this option.
-//!
-//! You'll need [`itmdump`] to receive the message on the host plus you'll need to uncomment two
-//! `monitor` commands in the `.gdbinit` file.
-//!
+//! You'll need [`itmdump`] to receive the message on the host
 //! [`itmdump`]: https://docs.rs/itm/0.2.1/itm/
 //!
 //! ---
