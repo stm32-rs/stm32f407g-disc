@@ -18,17 +18,28 @@
 #![no_std]
 
 extern crate panic_itm;
-extern crate stm32f407g_disc;
+extern crate stm32f407g_disc as board;
+extern crate embedded_hal as hal;
+
+use board::hal::prelude::*;
+use board::hal::stm32;
 
 use cortex_m::{iprintln, Peripherals};
 use cortex_m_rt::entry;
 
 #[entry]
 fn main() -> ! {
-    let mut p = Peripherals::take().unwrap();
-    let stim = &mut p.ITM.stim[0];
+	if let (Some(p), Some(cp)) = (stm32::Peripherals::take(), Peripherals::take()) {
+	    // Constrain clock registers
+	    let mut rcc = p.RCC.constrain();
+	    // Configure clock to 168 MHz (i.e. the maximum) and freeze it
+	    rcc.cfgr.sysclk(168.mhz()).freeze();
 
-    iprintln!(stim, "Hello, world!");
+	    let mut itm = cp.ITM;
+	    let stim = &mut itm.stim[0];
+
+	    iprintln!(stim, "Hello, world!");
+	}
 
     loop {}
 }
