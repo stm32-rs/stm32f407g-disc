@@ -10,30 +10,25 @@ set backtrace limit 32
 break DefaultHandler
 break HardFault
 break rust_begin_unwind
-# # run the next few lines so the panic message is printed immediately
-# # the number needs to be adjusted for your panic handler
-# commands $bpnum
-# next 4
-# end
 
 # *try* to stop at the user entry point (it might be gone due to inlining)
 break main
 
-set mem inaccessible-by-default off
+monitor arm semihosting enable
 
-# monitor arm semihosting enable
 
-# # send captured ITM to the file itm.txt
-# # (the programmer's SWO pin on the STM32F4DISCOVERY is hard-wired to PB3. Make sure not to use it for a different purpose!)
-# # 168000000 is the core clock frequency
+# send captured ITM to the file itm.txt
+# (the programmer's SWO pin on the STM32F4DISCOVERY is hard-wired to PB3. Make sure not to use it for a different purpose!)
+# 168000000 is the core clock frequency
 monitor tpiu config internal itm.txt uart off 168000000
 
-# # OR: make the microcontroller SWO pin output compatible with UART (8N1)
-# # 8000000 is the frequency of the SWO pin
+
+# OR: make the microcontroller SWO (PB3) pin output compatible with UART (8N1)
+# 8000000 is the frequency of the SWO pin
 # monitor tpiu config external uart off 8000000 2000000
 
-# # enable ITM port 0
-monitor itm port 0 on
+# # enable ITM port 1
+monitor itm port 1 on
 
 load
 
