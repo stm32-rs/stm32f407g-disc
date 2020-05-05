@@ -6,3 +6,4 @@ Cargo.lock
 **.sw*
 bloat_log*
 itm.txt
+.gdb_history
