@@ -14,9 +14,6 @@ break rust_begin_unwind
 # *try* to stop at the user entry point (it might be gone due to inlining)
 break main
 
-monitor arm semihosting enable
-
-
 # send captured ITM to the file itm.txt
 # (the programmer's SWO pin on the STM32F4DISCOVERY is hard-wired to PB3. Make sure not to use it for a different purpose!)
 # 168000000 is the core clock frequency
