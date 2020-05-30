@@ -17,7 +17,7 @@ fn main() -> ! {
         let gpiob = p.GPIOB.split();
         let rcc = p.RCC.constrain();
 
-        // Set up the clocks, going to fast exhibits some problem so let's take it slow for now
+        // Set up the clocks, going too fast exhibits some problem so let's take it slow for now
         let clocks = rcc.cfgr.sysclk(40.mhz()).freeze();
 
         // Set up the SCL pin of the I2C bus at PB6
