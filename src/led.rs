@@ -45,6 +45,10 @@ impl Leds {
             leds: [top.into(), left.into(), right.into(), bottom.into()],
         }
     }
+
+    pub fn iter_mut(&mut self) -> core::slice::IterMut<Led> {
+        self.leds.iter_mut()
+    }
 }
 
 impl core::ops::Deref for Leds {
