@@ -19,8 +19,10 @@ version = "0.4.0"
 readme = "README.md"
 
 [dependencies]
+accelerometer = "0.11.0"
 cortex-m = "0.6"
 cortex-m-rt = "0.6"
+lis302dl = "0.1.0"
 
 [dependencies.embedded-hal]
 features = ["unproven"]
@@ -29,7 +31,7 @@ version = "0.2"
 [dependencies.stm32f4xx-hal]
 default-features = false
 features = ["rt", "stm32f407"]
-version = "0.6"
+version = "0.8.2"
 
 [dev-dependencies]
 ssd1306 = "0.2"
@@ -43,3 +45,6 @@ debug = true
 debug = true
 lto = true
 opt-level = "s"
+
+[dependencies.panic-itm]
+version = "0.4.1"
