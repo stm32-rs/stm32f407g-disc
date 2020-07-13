@@ -13,4 +13,4 @@ _stack_start = ORIGIN(RAM) + LENGTH(RAM);
 
 /* Advanced users can place the stack inthe CCRAM */
 /* which is smaller but faster. */
-/* _stack_start = ORIGIN(CCRAM) + LENGTH(CCRAM);/*
+/* _stack_start = ORIGIN(CCRAM) + LENGTH(CCRAM); */
