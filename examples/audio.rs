@@ -11,6 +11,7 @@ use cortex_m_rt::entry;
 use stm32f407g_disc as board;
 
 use crate::board::{audio_out::AudioOut, hal::delay::Delay, hal::prelude::*, hal::stm32};
+use embedded_hal::blocking::i2s::Write;
 
 use cortex_m_log::println;
 use cortex_m_log::{destination::Itm, printer::itm::InterruptSync as InterruptSyncItm};
@@ -48,12 +49,17 @@ fn main() -> ! {
     );
 
     println!(log, "Starting audio");
+    play_sawtooth(&mut audio_out.i2s);
+}
+
+// Demonstrating decoupling of audio device and application code using the
+// embedded-hal trait for I2S.
+fn play_sawtooth(i2s: &mut impl Write<u16>) -> ! {
     let mut s: u16 = 0;
     let mut y: u16 = 100;
     loop {
-        // Send both left and right word.
-        audio_out.i2s.send(s).unwrap();
-        audio_out.i2s.send(s).unwrap();
+        // Send both left and right word (without buffering).
+        i2s.try_write(&[s], &[s]);
 
         // Sawtooth with incrementing pitch each cycle.
         if s >= (65535 - y) {

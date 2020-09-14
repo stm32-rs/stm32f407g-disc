@@ -22,7 +22,10 @@ readme = "README.md"
 accelerometer = "0.11.0"
 cortex-m = "0.6"
 cortex-m-rt = "0.6"
-lis302dl = "0.1.0"
+# lis302dl = "0.1.0"
+
+[dependencies.lis302dl]
+path = "../lis302dl"
 
 [dependencies.cs43l22]
 # git = "https://github.com/maxekman/cs43l22/"
@@ -35,7 +38,7 @@ path = "../cs43l22"
 features = ["unproven"]
 # version = "0.2.3"
 # git = "https://github.com/eldruin/embedded-hal/"
-# branch = "i2s"
+# branch = "i2s-v0.2.x"
 path = "../embedded-hal"
 
 [dependencies.stm32f4xx-hal]
