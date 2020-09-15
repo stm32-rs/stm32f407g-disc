@@ -19,7 +19,6 @@ break main
 # 168000000 is the core clock frequency
 monitor tpiu config internal itm.txt uart off 168000000
 
-
 # OR: make the microcontroller SWO (PB3) pin output compatible with UART (8N1)
 # 8000000 is the frequency of the SWO pin
 # monitor tpiu config external uart off 8000000 2000000

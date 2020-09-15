@@ -22,20 +22,37 @@ readme = "README.md"
 accelerometer = "0.11.0"
 cortex-m = "0.6"
 cortex-m-rt = "0.6"
-lis302dl = "0.1.0"
+# lis302dl = "0.1.0"
+
+[dependencies.lis302dl]
+path = "../lis302dl"
+
+[dependencies.cs43l22]
+# git = "https://github.com/maxekman/cs43l22/"
+# branch = "master"
+path = "../cs43l22"
 
 [dependencies.embedded-hal]
+# TODO: Update version when I2S proposal is finalized:
+# https://github.com/rust-embedded/embedded-hal/pull/204
 features = ["unproven"]
-version = "0.2"
+# version = "0.2.3"
+# git = "https://github.com/eldruin/embedded-hal/"
+# branch = "i2s-v0.2.x"
+path = "../embedded-hal"
 
 [dependencies.stm32f4xx-hal]
 default-features = false
 features = ["rt", "stm32f407"]
-version = "0.8.2"
+# version = "0.8.2"
+# git = "https://github.com/maxekman/stm32f4xx-hal/"
+# branch = "i2s"
+path = "../stm32f4xx-hal"
 
 [dev-dependencies]
 ssd1306 = "0.2"
 nb = "0.1"
+cortex-m-log = { version = "~0.6", features = ["itm"] }
 panic-halt = "0.2"
 panic-itm = "0.4"
 
