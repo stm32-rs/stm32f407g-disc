@@ -1,3 +1,4 @@
+//! This example circulary lights the LEDs on the board.
 #![no_main]
 #![no_std]
 

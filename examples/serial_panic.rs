@@ -1,3 +1,9 @@
+//! This example shows a custom panic handler, which outputs the panic message
+//! via USART. It receives 20 characters via USART and panics on the 21st.
+//!
+//! **NOTE:** You need to connect your own USART to PA2 (TX) and PA3 (RX) or
+//! modify the board as described in the user manual section 6.1.3
+
 #![no_main]
 #![no_std]
 

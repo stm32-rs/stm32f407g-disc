@@ -1,3 +1,7 @@
+//! This example reads the onboard accelerometer and lights the LEDs which point
+//! towards ground
+//!
+//! Additionally, the current accelleration is printed via itm.
 #![no_main]
 #![no_std]
 

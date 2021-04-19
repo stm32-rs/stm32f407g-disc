@@ -1,3 +1,8 @@
+//! This example echoes all communication received via USART back to the sender.
+//!
+//! **NOTE:** You need to connect your own USART to PA2 (TX) and PA3 (RX) or
+//! modify the board as described in the user manual section 6.1.3
+
 #![no_main]
 #![no_std]
 
