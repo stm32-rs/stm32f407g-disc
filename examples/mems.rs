@@ -55,21 +55,21 @@ fn main() -> ! {
                 led.off();
             }
 
-            // x+ orange
-            // x- blue
-            // y+ green
-            // y- red
+            // x+ red
+            // x- green
+            // y+ orange
+            // y- blue
 
-            if acceleration.x > 0.0 {
+            if acceleration.y > 0.0 {
                 leds[LedColor::Orange].on();
             } else {
                 leds[LedColor::Blue].on();
             }
 
-            if acceleration.y > 0.0 {
-                leds[LedColor::Green].on();
-            } else {
+            if acceleration.x > 0.0 {
                 leds[LedColor::Red].on();
+            } else {
+                leds[LedColor::Green].on();
             }
         }
     }
