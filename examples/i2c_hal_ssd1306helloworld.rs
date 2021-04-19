@@ -1,3 +1,7 @@
+//! This example shows how to display a sting on an external display via I2C.
+//!
+//! You need to connect an external SSD1306 OLED screen to the I2C bus at
+//! PB6(SCL) and PB7(SDA)
 #![no_main]
 #![no_std]
 
