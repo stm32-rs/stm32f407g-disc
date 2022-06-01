@@ -5,27 +5,27 @@ use crate::hal::prelude::*;
 use crate::hal::gpio::gpiod::{self, PD, PD12, PD13, PD14, PD15};
 use crate::hal::gpio::{Output, PushPull};
 
+
+// For LED pinout see ST user manual:
+// [UM1472](https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf)
+
 /// Top LED (orange)
-pub type LD3 = PD12<Output<PushPull>>;
+pub type LD3 = PD13<Output<PushPull>>;
 
 /// Left LED (green)
-pub type LD4 = PD13<Output<PushPull>>;
+pub type LD4 = PD12<Output<PushPull>>;
 
 /// Right LED (red)
-pub type LD5 = PD15<Output<PushPull>>;
+pub type LD5 = PD14<Output<PushPull>>;
 
 /// Bottom LED (blue)
-pub type LD6 = PD14<Output<PushPull>>;
+pub type LD6 = PD15<Output<PushPull>>;
 
 /// User LED colors
 pub enum LedColor {
-    /// Green LED / LD4
-    Green,
-    /// Orange LED / LD3
     Orange,
-    /// Red LED / LD5
+    Green,
     Red,
-    /// Blue LED / LD6
     Blue,
 }
 
@@ -36,8 +36,8 @@ pub struct Leds {
 
 impl Leds {
     pub fn new(gpiod: gpiod::Parts) -> Self {
-        let top = gpiod.pd12.into_push_pull_output();
-        let left = gpiod.pd13.into_push_pull_output();
+        let top = gpiod.pd13.into_push_pull_output();
+        let left = gpiod.pd12.into_push_pull_output();
         let right = gpiod.pd14.into_push_pull_output();
         let bottom = gpiod.pd15.into_push_pull_output();
 
