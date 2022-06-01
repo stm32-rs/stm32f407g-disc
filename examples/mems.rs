@@ -55,25 +55,25 @@ fn main() -> ! {
                 acceleration.z,
             );
 
-            for led in leds.iter_mut() {
-                led.off();
-            }
-
-            // x+ red
-            // x- green
-            // y+ orange
-            // y- blue
-
-            if acceleration.y > 0.0 {
-                leds[LedColor::Orange].on();
-            } else {
-                leds[LedColor::Blue].on();
-            }
+            // x+ orange
+            // x- blue
+            // y+ red
+            // y- green
 
             if acceleration.x > 0.0 {
+                leds[LedColor::Orange].on();
+                leds[LedColor::Blue].off();
+            } else {
+                leds[LedColor::Blue].on();
+                leds[LedColor::Orange].off();
+            }
+
+            if acceleration.y > 0.0 {
                 leds[LedColor::Red].on();
+                leds[LedColor::Green].off();
             } else {
                 leds[LedColor::Green].on();
+                leds[LedColor::Red].off();
             }
         }
     }
