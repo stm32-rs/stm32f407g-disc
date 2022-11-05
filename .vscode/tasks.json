@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cargo",
+            "command": "embed",
+            "args": [
+                "--example",
+                "gpio_hal_blinky"
+            ],
+            "label": "Flash blinky"
+        },
+        {
+            "type": "cargo",
+            "command": "embed",
+            "args": [
+                "--example",
+                "gpio_hal_busy_blinky"
+            ],
+            "label": "Flash busy blinky"
+        },
+    ]
+}

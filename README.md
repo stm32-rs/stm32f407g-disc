@@ -17,7 +17,7 @@ It also contains a (non-removable) capable ST-Link V2 debugging interface.
 Programming
 -----------
 
-Several methods for programming exist. If the ST-Link on your board has a recent firmware (can be updated e.g. via [ST-LINK utility](https://www.st.com/en/development-tools/stsw-link004.html)), we recomend the use of [cargo-embed](https://github.com/probe-rs/cargo-embed):
+Several methods for programming exist. If the ST-Link on your board has a recent firmware (can be updated e.g. via [ST-LINK utility](https://www.st.com/en/development-tools/stsw-link004.html)), we recommend the use of [cargo-embed](https://github.com/probe-rs/cargo-embed):
 
 ```sh
 cargo embed --example=mems
@@ -27,6 +27,7 @@ cargo embed --example=mems
 
 Otherwise this repo also contains config files for [OpenOCD](http://openocd.org/).
 
+Debugging in [VSCode](https://code.visualstudio.com/docs/editor/debugging) with [Cortex Debug](https://github.com/Marus/cortex-debug) is supported.
 
 License
 -------

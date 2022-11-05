@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug blinky",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Flash blinky",
+            "executable": "./target/thumbv7em-none-eabihf/debug/examples/gpio_hal_blinky",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "openocd",
+            "device": "STM32F407VGTx",
+            "configFiles": [
+                "interface/stlink-v2.cfg",
+                "target/stm32f4x.cfg"
+            ],
+        },
+        {
+            "name": "Debug busy blinky",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Flash busy blinky",
+            "executable": "./target/thumbv7em-none-eabihf/debug/examples/gpio_hal_busy_blinky",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "openocd",
+            "device": "STM32F407VGTx",
+            "configFiles": [
+                "interface/stlink-v2.cfg",
+                "target/stm32f4x.cfg"
+            ],
+        }
+    ]
+}
