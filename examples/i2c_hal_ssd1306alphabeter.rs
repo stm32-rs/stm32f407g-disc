@@ -42,7 +42,8 @@ fn main() -> ! {
         let i2c = I2c::i2c1(p.I2C1, (scl, sda), 400.khz(), clocks);
 
         // Set up the SSD1306 display at I2C address 0x3c
-        let mut disp: TerminalMode<_> = Builder::new().with_i2c_addr(0x3c).connect_i2c(i2c).into();
+        let mut disp: TerminalMode<_, _> =
+            Builder::new().with_i2c_addr(0x3c).connect_i2c(i2c).into();
 
         // Set display rotation to 180 degrees
         let _ = disp.set_rotation(DisplayRotation::Rotate180);
