@@ -35,7 +35,7 @@ version = "0.2"
 [dependencies.stm32f4xx-hal]
 default-features = false
 features = ["rt", "stm32f407"]
-version = "0.9.0"
+version = "0.10.0"
 
 [dev-dependencies]
 ssd1306 = "0.5.2"
