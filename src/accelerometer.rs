@@ -19,6 +19,7 @@ type Spi1 = spi::Spi<
         gpioa::PA6<gpio::Alternate<gpio::AF5>>,
         gpioa::PA7<gpio::Alternate<gpio::AF5>>,
     ),
+    spi::TransferModeNormal,
 >;
 
 type ChipSelect = gpioe::PE3<gpio::Output<gpio::PushPull>>;
