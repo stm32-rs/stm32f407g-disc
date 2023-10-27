@@ -12,9 +12,9 @@ use stm32f407g_disc as board;
 use nb::block;
 
 use crate::board::{
+    hal::pac,
     hal::prelude::*,
-    hal::stm32,
-    serial::{config::Config, Serial},
+    hal::serial::{config::Config, Serial, Tx},
 };
 
 use cortex_m::interrupt::Mutex;
@@ -22,8 +22,7 @@ use cortex_m::interrupt::Mutex;
 use core::{cell::RefCell, fmt::Write, ops::DerefMut};
 
 // Make the write part of our serial port globally available
-static PANIC_SERIAL: Mutex<RefCell<Option<board::serial::Tx<board::stm32::USART2>>>> =
-    Mutex::new(RefCell::new(None));
+static PANIC_SERIAL: Mutex<RefCell<Option<Tx<pac::USART2>>>> = Mutex::new(RefCell::new(None));
 
 use core::panic::PanicInfo;
 
@@ -43,22 +42,22 @@ fn panic(info: &PanicInfo) -> ! {
 
 #[cortex_m_rt::entry]
 fn main() -> ! {
-    if let Some(p) = stm32::Peripherals::take() {
+    if let Some(p) = pac::Peripherals::take() {
         let gpioa = p.GPIOA.split();
         let rcc = p.RCC.constrain();
-        let clocks = rcc.cfgr.sysclk(48.mhz()).freeze();
+        let clocks = rcc.cfgr.sysclk(48.MHz()).freeze();
 
         // USART2 at PA2 (TX) and PA3(RX) are connected to ST-Link
         // (well, not really, you're supposed to wire them yourself!)
-        let tx = gpioa.pa2.into_alternate_af7();
-        let rx = gpioa.pa3.into_alternate_af7();
+        let tx = gpioa.pa2;
+        let rx = gpioa.pa3;
 
         // Set up USART 2 configured pins and a baudrate of 115200 baud
-        let serial = Serial::usart2(
+        let serial = Serial::new(
             p.USART2,
             (tx, rx),
             Config::default().baudrate(115_200.bps()),
-            clocks,
+            &clocks,
         )
         .unwrap();
 
