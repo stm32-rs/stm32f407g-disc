@@ -1,10 +1,7 @@
 //! On-board user LEDs
 
-use crate::hal::prelude::*;
-
-use crate::hal::gpio::gpiod::{self, PD, PD12, PD13, PD14, PD15};
+use crate::hal::gpio::gpiod::{self, PDn, PD12, PD13, PD14, PD15};
 use crate::hal::gpio::{Output, PushPull};
-
 
 // For LED pinout see ST user manual:
 // [UM1472](https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf)
@@ -95,7 +92,7 @@ impl core::ops::IndexMut<LedColor> for Leds {
 
 /// One of the on-board user LEDs
 pub struct Led {
-    pin: PD<Output<PushPull>>,
+    pin: PDn<Output<PushPull>>,
 }
 
 macro_rules! ctor {
@@ -104,7 +101,7 @@ macro_rules! ctor {
 			impl Into<Led> for $ldx {
 				fn into(self) -> Led {
 					Led {
-						pin: self.downgrade(),
+						pin: self.erase_number(),
 					}
 				}
 			}
@@ -117,20 +114,16 @@ ctor!(LD3, LD4, LD5, LD6);
 impl Led {
     /// Turns the LED off
     pub fn off(&mut self) {
-        self.pin.set_low().ok();
+        self.pin.set_low();
     }
 
     /// Turns the LED on
     pub fn on(&mut self) {
-        self.pin.set_high().ok();
+        self.pin.set_high();
     }
 
     /// Toggles the LED
     pub fn toggle(&mut self) {
-        if let Ok(true) = self.pin.is_low() {
-            self.pin.set_high().ok();
-        } else {
-            self.pin.set_low().ok();
-        }
+        self.pin.toggle();
     }
 }
