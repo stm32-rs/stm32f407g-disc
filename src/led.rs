@@ -1,10 +1,7 @@
 //! On-board user LEDs
 
-use crate::hal::prelude::*;
-
 use crate::hal::gpio::gpiod::{self, PD, PD12, PD13, PD14, PD15};
 use crate::hal::gpio::{Output, PushPull};
-
 
 // For LED pinout see ST user manual:
 // [UM1472](https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf)
@@ -104,7 +101,7 @@ macro_rules! ctor {
 			impl Into<Led> for $ldx {
 				fn into(self) -> Led {
 					Led {
-						pin: self.downgrade(),
+						pin: self.erase_number(),
 					}
 				}
 			}
