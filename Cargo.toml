@@ -50,6 +50,3 @@ debug = true
 debug = true
 lto = true
 opt-level = "s"
-
-[dependencies.panic-itm]
-version = "0.4.2"
