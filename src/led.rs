@@ -1,6 +1,6 @@
 //! On-board user LEDs
 
-use crate::hal::gpio::gpiod::{self, PD, PD12, PD13, PD14, PD15};
+use crate::hal::gpio::gpiod::{self, PDn, PD12, PD13, PD14, PD15};
 use crate::hal::gpio::{Output, PushPull};
 
 // For LED pinout see ST user manual:
@@ -92,7 +92,7 @@ impl core::ops::IndexMut<LedColor> for Leds {
 
 /// One of the on-board user LEDs
 pub struct Led {
-    pin: PD<Output<PushPull>>,
+    pin: PDn<Output<PushPull>>,
 }
 
 macro_rules! ctor {
