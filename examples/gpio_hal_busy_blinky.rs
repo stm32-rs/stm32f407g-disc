@@ -7,7 +7,7 @@ use stm32f407g_disc as board;
 
 use crate::board::{
     hal::prelude::*,
-    hal::stm32,
+    hal::pac,
     led::{LedColor, Leds},
 };
 
@@ -15,7 +15,7 @@ use cortex_m_rt::entry;
 
 #[entry]
 fn main() -> ! {
-    if let Some(p) = stm32::Peripherals::take() {
+    if let Some(p) = pac::Peripherals::take() {
         let gpiod = p.GPIOD.split();
 
         // Initialize on-board LEDs

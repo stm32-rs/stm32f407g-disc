@@ -11,8 +11,8 @@ use stm32f407g_disc as board;
 
 use cortex_m_rt::entry;
 
+use board::hal::pac;
 use board::hal::prelude::*;
-use board::hal::stm32;
 use board::led::{LedColor, Leds};
 
 use cortex_m::iprintln;
@@ -23,7 +23,7 @@ use accelerometer::Accelerometer;
 
 #[entry]
 fn main() -> ! {
-    if let (Some(p), Some(cp)) = (stm32::Peripherals::take(), Peripherals::take()) {
+    if let (Some(p), Some(cp)) = (pac::Peripherals::take(), Peripherals::take()) {
         let gpioa = p.GPIOA.split();
         let gpiod = p.GPIOD.split();
         let gpioe = p.GPIOE.split();
@@ -36,7 +36,7 @@ fn main() -> ! {
         let rcc = p.RCC.constrain();
 
         // Configure clock to 168 MHz (i.e. the maximum) and freeze it
-        let clocks = rcc.cfgr.sysclk(168.mhz()).freeze();
+        let clocks = rcc.cfgr.sysclk(168.MHz()).freeze();
 
         let mut accelerometer =
             board::accelerometer::Accelerometer::new(gpioa, gpioe, p.SPI1, clocks);
@@ -55,25 +55,25 @@ fn main() -> ! {
                 acceleration.z,
             );
 
-            // x+ orange
-            // x- blue
-            // y+ red
-            // y- green
+            // x+ red
+            // x- green
+            // y+ orange
+            // y- blue
 
             if acceleration.x > 0.0 {
-                leds[LedColor::Orange].on();
-                leds[LedColor::Blue].off();
-            } else {
-                leds[LedColor::Blue].on();
-                leds[LedColor::Orange].off();
-            }
-
-            if acceleration.y > 0.0 {
                 leds[LedColor::Red].on();
                 leds[LedColor::Green].off();
             } else {
                 leds[LedColor::Green].on();
                 leds[LedColor::Red].off();
+            }
+
+            if acceleration.y > 0.0 {
+                leds[LedColor::Orange].on();
+                leds[LedColor::Blue].off();
+            } else {
+                leds[LedColor::Blue].on();
+                leds[LedColor::Orange].off();
             }
         }
     }
